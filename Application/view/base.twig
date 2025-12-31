@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="title" content="Web site" /> 
+		<meta name="description" content="Proyectos basados en el framework php Symfony" />
+		<meta name="keywords" content="diseño web, desarrollo web, framework symfony, php, programación web" />
+		<meta name="robots" content="All" />  
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+		<link rel="icon" type="image/gif" href="/images/favicon.ico">	
+        <title>{% block title %}AutoDevelop{% endblock %}</title>   
+        {# <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text></svg>"> #}
+        {# Run `composer require symfony/webpack-encore-bundle` to start using Symfony UX #}
+        {% block stylesheets %}
+			<link rel="stylesheet" type="text/css" href='/css/reset.css'>
+			<link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css">
+        	<link rel="stylesheet" type="text/css" href='/css/estilo.css'>			       	         
+        {% endblock %}       
+    </head>
+    <body>
+    	<div class="container-fluid">
+			<header class="d-flex justify-content-center align-items-center shadow rounded bg-success p-2 bg-opacity-25 border border-primary">				
+				<div class="container-fluid">
+					<div class="row align-items-center">						
+						<div class="col-12 col-md-10 col-lg-12">							
+							<h1 class="text-success">Project Name</h1>
+						</div>						
+					</div>										
+				</div>				
+			</header>
+			{% block nav %}			
+			<nav class="navbar navbar-expand-lg navbar-light bg-light sticky-top">				
+				<div class="container-fluid">					
+					<div class="col-5 col-sm-1 col-md-3 col-lg-2 col-xl-1">
+						<a class="navbar-brand" href=""><img src="images/main_logo.png" class="img-fluid float-start" alt="imagen_logo"></a>
+					</div>								
+					<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#my_nav" aria-controls="my_nav" aria-expanded="false" aria-label="Toggle navigation">
+						<span class="navbar-toggler-icon"></span>
+					</button>
+					<div class="collapse navbar-collapse" id="my_nav">
+						<ul class="nav navbar-nav justify-content-center w-100">							
+							{% block navlinks %}
+								{% for key, value in menus %}
+								<li class="nav-item d-lg-inline-block">
+									<a class="nav-link {% if key == active|capitalize %}active{% endif %}" aria-current="page" href="{{ value }}">{{ key }}</a>
+								</li>
+								{% endfor %}	
+							{% endblock navlinks %}							
+						</ul>						
+					</div>					
+				</div>				
+			</nav>
+			{% endblock %}		
+			<main class="pt-3 pb-3">
+				{% if session.user_name is defined %}
+					<p class="text-end pe-3">Logged as {{ session.user_name|capitalize }}</p>
+				{% endif %}
+				
+				{% if message is defined %}
+					<p class="alert alert-success text-center">{{ message }}</p>					
+				{% elseif error_message is defined %}
+					{% if error_message is iterable %}
+					<p class="alert alert-danger text-center">
+						{% for key, row in error_message %}
+						{{ key }} {{ row }}<br>
+						{% endfor %}
+					</p>  
+					{% else %}
+					<p class="alert alert-danger text-center">{{ error_message }}</p>
+					{% endif %}						
+				{% endif %}
+				{% block main %}
+					{% block section  %}
+														
+					{% endblock section  %}
+					{% block aside %}
+					<aside class="col-12 col-lg-3 mb-5 menuDia">		
+						
+					</aside>
+					{% endblock aside %}					
+				{% endblock %}
+			</main>
+			<footer class="text-center rounded bg-success p-2 bg-opacity-25 border border-primary">
+				{% block footer %}
+					<div class="container-fluid p-xl-5">						
+						<div class="row">
+							<div class="col-sm-6 col-lg-3 pe-xl-5 ps-xl-5 mb-4">
+								<h4>Footer1</h4>
+								<p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Totam, delectus. Blanditiis reiciendis esse similique amet, laboriosam, eos quasi eligendi perferendis necessitatibus fugiat quibusdam veniam, neque aspernatur atque voluptas vel! Amet?
+								Quia sit et deserunt molestias ullam, dignissimos enim debitis praesentium corrupti sequi, culpa harum quae nemo excepturi reprehenderit accusantium ipsam odio non consequatur deleniti nobis ad quos officiis. Dolore, maiores.
+								Omnis eveniet velit vitae dolorum hic tempora asperiores nihil similique enim sit! Eos deserunt magni voluptate consequatur quisquam quod maxime ut possimus est hic. Vel non sunt veniam fugiat quod!</p>								
+							</div>
+							<div class="col-sm-6 col-lg-3 pe-xl-5 ps-xl-5 mb-4">
+								<h4>Footer2</h4>
+								<p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Incidunt non iste quidem doloribus, id saepe iusto natus, officia maxime aliquam esse recusandae voluptatem dolorem cum quam provident fugit eligendi quia?
+								Blanditiis eaque sequi, aliquam tempore repellendus explicabo consequatur numquam libero, sint, labore soluta quia laudantium. Iste sapiente, quisquam corrupti eaque illo possimus qui quibusdam obcaecati, dolorum reprehenderit harum dicta magnam!
+								Natus molestiae unde tempora inventore reiciendis cum earum deserunt, debitis, rerum velit temporibus voluptas libero eos corrupti vel id dolore possimus, rem odit laboriosam aliquam harum? Magnam iure laboriosam enim?</p>															
+							</div>
+							<div class="col-sm-6 col-lg-3 pe-xl-5 ps-xl-5 mb-4">
+								<h4>Footer3</h4>
+								<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Et enim, beatae obcaecati rem dolores fugiat impedit sit velit. Cum dignissimos omnis nulla incidunt beatae facere voluptas quas in nobis soluta?
+								Deserunt impedit ipsa doloremque amet. Deserunt, officia! Repellendus, asperiores exercitationem accusamus voluptas alias sed quasi placeat, illo aliquid sapiente minus? Sit tempora accusamus minus, atque dolore delectus voluptatem sapiente cum!
+								Itaque incidunt asperiores soluta minus ut voluptates eveniet, dolore id quis porro quod voluptatum corporis atque tempore ducimus fugit perspiciatis quidem quasi culpa, dignissimos expedita delectus! Labore sed iure odio!</p>
+							</div>
+							<div class="col-sm-6 col-lg-3 pe-xl-5 ps-xl-5 mb-4">
+								<h4>Footer4</h4>								
+								<p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Accusamus, cum? A, consequatur, dolorum necessitatibus modi, iste nostrum in sunt provident quidem ipsam quo porro aperiam sapiente voluptas nobis illum? Id!
+								Voluptates voluptas provident fugit, laborum incidunt non dignissimos pariatur sint dolore quae nisi quidem blanditiis nemo. Voluptatum nesciunt harum provident delectus! Perspiciatis, eius voluptate quibusdam inventore fugit ut sequi cumque?
+								Repudiandae illo molestias error alias provident, voluptas earum nobis corporis officia voluptate harum eos dolor reprehenderit quo explicabo mollitia atque repellat reiciendis nam consectetur eveniet quidem! Reprehenderit, rem eaque. Excepturi?</p>
+							</div>
+							<div class="row pt-5">
+								<p class="text-center">Copyright &copy;2022 - {{ "now"|date("Y") }} Made by <em>José Mario Moreno Montenegro</em></p>
+							</div>
+						</div>
+					</div>					
+				{% endblock %}
+			</footer> 
+		</div>
+	{% block javascripts %}
+		<script src="/js/bootstrap.bundle.min.js"></script>
+        	<script src='/js/eventos.js'></script>
+        	<script src='/js/passwd_test_strength.js'></script>       	
+        {% endblock %}       
+    </body>
+</html>
+

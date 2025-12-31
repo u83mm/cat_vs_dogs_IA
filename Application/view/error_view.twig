@@ -1,0 +1,16 @@
+{% extends "./base.twig" %}
+
+{% block main %}
+    <h4>Error View</h4>
+    {% if exception_message is defined %}
+        {% if exception_message is iterable %}
+        <p class="alert alert-danger text-center">
+            {% for key, row in exception_message %}
+            {{ key }} {{ row }}<br>
+            {% endfor %}
+        </p>  
+        {% else %}
+        <p class="alert alert-danger text-center">{{ exception_message }}</p>
+        {% endif %}   
+    {% endif %}  
+{% endblock main %}

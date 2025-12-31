@@ -1,0 +1,326 @@
+@font-face{
+font-family: ubuntuRegular;
+src: url('../ttf/Ubuntu-R.ttf') format('truetype');
+}
+
+@font-face{
+font-family: ubuntuBold;
+src: url('../ttf/Ubuntu-B.ttf') format('truetype');
+}
+
+@font-face{
+font-family: ubuntuBoldItalic;
+src: url('../ttf/Ubuntu-BI.ttf') format('truetype');
+}
+
+@font-face{
+font-family: ubuntuItalic;
+src: url('../ttf/Ubuntu-I.ttf') format('truetype');
+}
+
+@font-face{
+font-family: GreatVibesRegular;
+src: url('../ttf/GreatVibes-R.woff2') format('truetype');
+}
+
+
+* {
+	margin: 0px;
+	padding: 0px;
+	outline: none;
+	text-decoration: none;
+	box-sizing: border-box;
+}	
+
+body {
+	font-size: 100%;
+	/* max-width: 1140px; */
+	width: 90%;
+	font-family: ubuntuRegular;
+	margin: 0 auto;
+}
+
+hr {
+	margin-top: 10px;
+}
+
+h1 {
+	font-size: 2em;
+	margin-bottom: 30px;
+	text-align: center;
+	transform: translate(0px, 20px);
+}
+
+h2 {
+	font-size: 1.5em;
+	margin-bottom: 2em;
+}
+
+h3 {
+	font-size: 1.17em;
+	margin-left: 10px;
+}
+
+h4 {
+	 font-size: 1em;
+	 margin-bottom: 1em;
+}
+
+h5 {
+	font-size: .83em;
+}
+
+h6 {
+	font-size: .67em;
+}
+
+nav {
+	margin-bottom: 1em;	
+}
+
+nav li {
+	display: inline;	
+}
+
+nav a {
+	text-decoration: none;
+}
+
+p{	
+	text-align: justify;	
+	margin-bottom: 1em;
+}
+
+td {
+	text-align: center;
+	padding: 0.5em;
+	border: 1px solid black;
+	background-color: antiquewhite;
+}
+
+label{
+	display: inline-block;
+	margin-top: 5px;
+	margin-left: 5px;
+	margin-right: 5px;
+	padding-top: 0.5em;
+	font-family: Arial;	
+	text-align: right;
+}
+
+footer p{
+	text-align: center;
+	margin: 0em;
+}
+
+footer {
+	background-color: darkslategray;
+	padding: 1em;
+	clear: both;
+	min-height: 10em;
+}
+
+.error {
+	color: red;
+}
+
+main {
+	min-height: 40em;
+}
+
+header {
+	background-color: darkcyan;
+}
+
+#datos {
+	margin-top: 1em;
+	margin-bottom: 1em;
+	background: lightgray;
+}
+
+input[type="button"], [type="text"], [type="number"], [type="submit"] {
+	padding: 0.5em;
+}
+
+form {
+	margin-top: 2em;
+}
+
+pre {
+	margin-top: 2em;	
+}
+
+table {
+	margin-top: 2em;
+}
+
+th {
+	border: 1px solid black;
+	padding: 1em;
+	background-color: yellow;
+}
+
+sup {
+	vertical-align: super;
+	font-size: smaller;
+}
+
+input[type=number] {
+	-moz-appearance: textfield;
+}
+
+select {
+	padding: 0.5em;
+}
+
+.credentials {	
+	border-radius: 0.5em;
+	box-shadow: 0em 0em 1em;
+	text-align: center;
+	padding: 1em;
+	margin-top: 3em;
+}
+
+.credentials p, .credentials a {
+	font-size: 0.7em;	
+}
+
+.credentials input[type="submit"], .credentials button[type="submit"] {
+	border-radius: 1.5em;
+	border: 1px solid gray;
+	width: 80%;
+}
+
+.credentials form {
+	margin-top: 0
+}
+
+.legalTermsDiv {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	align-content: center;
+}
+
+/***************** Password strength style *************************/
+.strength {
+	width: 80%;
+	height: 0.5em;	
+	margin-top: 0.5em;
+	border-radius: 0.5em;
+	background-color: #ddd;
+	margin: 0 auto;
+	padding: 0;
+}
+
+.strength_bar {
+	height: 100%;
+	border-radius: 0.5em;
+	transition: 0.3s;
+	-webkit-transition: 0.3s;
+	-moz-transition: 0.3s;
+	-ms-transition: 0.3s;
+	-o-transition: 0.3s;
+}
+
+.strength_bar.very_weak {
+	background-color: red;
+	width: 20%;
+}
+
+.strength_bar.weak {
+	background-color: lightsalmon;
+	width: 25%;
+}
+
+.strength_bar.medium {
+	background-color: orange;
+	width: 50%;
+}
+
+.strength_bar.strong {
+	background-color: yellowgreen;
+	width: 75%;
+}
+
+.strength_bar.very_strong {
+	background-color: green;
+	width: 100%;
+}
+
+.show_password {
+	cursor: pointer;
+}
+
+/***************** Cats vs Dogs *************************/
+.card { 
+	background: white; 
+	padding: 2rem; 
+	border-radius: 10px; 
+	box-shadow: 0 4px 6px rgba(0,0,0,0.1); 
+	width: 100%; 
+	max-width: 400px; 
+	text-align: center;
+	margin: 0 auto;
+	
+	.btn { 
+		background: #007bff; 
+		color: white; 
+		border: none; 
+		padding: 10px 20px; 
+		border-radius: 5px; 
+		cursor: pointer; 
+		margin-top: 1rem; 
+	}
+}
+
+.preview { 
+	max-width: 100%; 
+	height: auto; 
+	margin-top: 1rem; 
+	border-radius: 5px; 
+	display: none; 
+}
+
+.result { 
+	margin-top: 1.5rem; 
+	padding: 10px; 
+	border-radius: 5px; 
+	background: #e9ecef; 	
+}
+/***************** Fin Cats vs Dogs *************************/
+
+
+/***************** Configuración para móviles **********************/
+@media (max-width:480px) {
+
+}
+
+/************************************************************************
+*			iphone 6/7/8 horizontal														*
+************************************************************************/
+@media (min-width:481px) and (max-width: 668px) {	
+
+}
+
+/************************************************************************
+*			Configuración para tablets portrait (retrato)						*
+************************************************************************/
+@media (min-width:481px) and (max-width: 768px) {
+	
+}
+
+/***************************************************************
+*		Configuración para tablets landscape (horizontal)	   *
+***************************************************************/
+@media (min-width: 769px) and (max-width: 1050px) {
+
+}
+
+/***************************************************************
+*			 Configuración para KINDLE FIRE					   *
+***************************************************************/
+@media (min-width: 1051px) and (max-width: 1280px) {
+		
+}
+

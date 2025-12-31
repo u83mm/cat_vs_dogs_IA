@@ -1,0 +1,8 @@
+flask
+flask-cors
+numpy
+pillow
+#tensorflow>=2.16  # Forzamos una versión moderna
+#keras>=3.0        # Keras 3 maneja mejor los archivos .keras
+tensorflow
+keras

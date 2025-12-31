@@ -1,0 +1,18 @@
+<div class="card">
+    <h2>¿Perro o Gato?</h2>
+    <form action="#" method="post" enctype="multipart/form-data">
+        <input type="file" name="mascota" id="inputFoto" accept="image/*" required>
+        <img id="preview" class="preview">
+        <button type="submit" class="btn">Analizar Imagen</button>
+    </form>
+</div>
+
+<script>
+    inputFoto.onchange = evt => {
+        const [file] = inputFoto.files;
+        if (file) {
+            preview.src = URL.createObjectURL(file);
+            preview.style.display = 'block';
+        }
+    }
+</script>

@@ -1,0 +1,32 @@
+<form action="/register/new" method="post">
+    <div class="col-sm-12 col-lg-4 d-inline-block text-sm-center text-lg-end">
+        <label class="col-form-label text-center text-lg-end" for="user_name">User name:</label>        
+    </div>
+    <div class="col-sm-12 col-lg-6 d-inline-block">
+        <input class="form-control" type="text" name="user_name" id="user_name" value="{{ fields.user_name }}" placeholder="User name" required>
+    </div>
+    <div class="col-sm-12 col-lg-4 d-inline-block text-sm-center text-lg-end">
+        <label class="col-form-label text-center text-lg-end" for="email">E-mail:</label>        
+    </div>
+    <div class="col-sm-12 col-lg-6 d-inline-block">
+        <input class="form-control" type="email" name="email" id="email" value="{{ fields.email }}" placeholder="email@email.com" required>
+    </div>
+    <div class="col-sm-12 col-lg-4 d-inline-block text-sm-center text-lg-end">
+        <label class="col-form-label text-center text-lg-end" for="password">Password:</label>       
+    </div>       
+    <div class="col-sm-12 col-lg-6 d-inline-block">
+        <input class="form-control" type="password" name="password" id="password" value="{{ fields.password }}" placeholder="Enter your password" required>
+    </div>
+    <div class="col-sm-12 col-lg-4 d-inline-block text-sm-center text-lg-end">
+        <label class="col-form-label text-center text-lg-end" for="repeat_password">Repeat Password:</label>       
+    </div>       
+    <div class="col-sm-12 col-lg-6 d-inline-block mb-3">
+        <input class="form-control" type="password" name="repeat_password" id="repeat_password" placeholder="Repeat password" required>
+    </div>
+    <div class="col-sm-12 col-lg-4 d-inline-block text-sm-center text-lg-end">
+                     
+    </div>       
+    <div class="col-sm-12 col-lg-6 d-inline-block">
+        <button class="btn btn-outline-secondary" type="submit">Register</button>
+    </div>
+</form>
