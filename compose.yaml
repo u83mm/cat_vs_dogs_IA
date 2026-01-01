@@ -10,7 +10,8 @@ services:
         - "./Application/log/db:/var/log"        
 
   phpmyadmin:    
-    image: phpmyadmin 
+    #image: phpmyadmin
+    build: ./Application/PhpMyAdmin/ 
     container_name: phpmyadmin   
     ports:
       - "8080:80"
@@ -37,13 +38,11 @@ services:
       - ./docker-php-ext-xdebug.ini:/usr/local/etc/php/php.ini      
       - "./Application/log/apache:/var/log/apache2"
       - "./Application/log/php:/var/log"
-      - "./ai_temp_uploads:/var/www/html/uploads" # Volumen compartido para el procesamiento de imágenes
+      - "./ai_temp_uploads:/var/www/ai_temp_uploads" # Volumen compartido para el procesamiento de imágenes
 
   ai-service:
     build: ./ai-service
-    container_name: ai-service      
-    ports:
-      - "5000:5000"
+    container_name: ai-service          
     deploy:
       resources:
         reservations:
