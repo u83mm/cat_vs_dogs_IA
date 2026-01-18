@@ -20,8 +20,21 @@
 ###< symfony/phpunit-bridge ###
 
 ###> my files to ignore ###
-/Application/log/
-/Application/db_vol/
+/Application/log/*?.*
+/Application/db_vol/*?.*
+/Application/db_vol/aria_log_control
+/Application/db_vol/ib_buffer_pool
+/Application/db_vol/ib_logfile0
+/Application/db_vol/ibdata1
+Application/db_vol/ibtmp1
+Application/db_vol/mariadb_upgrade_info
+Application/db_vol/my_database/
+Application/db_vol/mysql/
+Application/db_vol/performance_schema/
+Application/db_vol/sys/
+Application/db_vol/undo001
+Application/db_vol/undo002
+Application/db_vol/undo003
 ###< my files to ignore ###
 
 
