@@ -1,6 +1,8 @@
 # Installation
 ## Add trained model
-Before use the app we must add a trained model. We can train one in a python enviroment with Jupyterlab. After that, we add the model labeled "perros_gatos_master.keras" to the "ai-service" folder in the root app after cloned the repository.
+Before use the app we must add a trained model. We can train one in a python enviroment with Jupyterlab. After that, we add the model labeled <code>model.keras</code> to the <code>ai-service</code> folder in the root app after cloned the repository.
+
+Read the <code>BUILD_MODEL.md</code> file.
 
 ## Run the app
 ##### 1.- First we clone the repo
