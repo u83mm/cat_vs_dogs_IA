@@ -13,7 +13,7 @@ git clone git@github.com:u83mm/cat_vs_dogs_IA.git
 ```
 cd cat_vs_dogs_IA
 ./ai-service/
-       |_ perros_gatos_master.keras
+       |_ model.keras
 ```
 
 ##### 3.- Add the .env file with database credentials to "Application/MariaDB" folder:
