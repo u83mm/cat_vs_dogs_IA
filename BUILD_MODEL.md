@@ -42,7 +42,7 @@ train_ds = tf.keras.utils.image_dataset_from_directory(
 )
 
 val_ds = tf.keras.utils.image_dataset_from_directory(
-    'cats_vs_dogs/validation',
+    'cats_vs_dogs/test',
     image_size=img_size,
     batch_size=batch_size,
     label_mode='binary'
@@ -133,7 +133,7 @@ os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
 import tensorflow as tf
 
 # load the model
-model = tf.keras.models.load_model('dogs_vs_cats_model1.keras')
+model = tf.keras.models.load_model('model.keras')
 
 def predict_animal(img_path):
     # load the image
