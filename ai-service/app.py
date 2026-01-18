@@ -25,7 +25,7 @@ CORS(app)
 UPLOAD_FOLDER = '/app/uploads'
 
 # Cargamos el modelo MAESTRO
-MODEL_PATH = 'perros_gatos_master.keras'
+MODEL_PATH = 'model.keras'
 model = tf.keras.models.load_model(MODEL_PATH)
 
 def prepare_image(img_path):
