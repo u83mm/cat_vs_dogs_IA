@@ -23,18 +23,13 @@ MYSQL_DATABASE=my_database
 MYSQL_USER=admin
 MYSQL_PASSWORD=admin
 ```
-##### 4.- Add necessary folders:
-```
-cd Application
-mkdir db_vol log log/php log/apache log/db
-```
-##### 5.- Run:
+##### 4.- Run:
 ```
 docker compose build
 docker compose up -d
 ```
 
-##### 6.- Install dependencies:
+##### 5.- Install dependencies:
 ```
 docker exec -it php bash
 composer install
