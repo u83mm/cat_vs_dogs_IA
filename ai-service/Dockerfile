@@ -24,7 +24,7 @@ COPY requirements.txt .
 RUN pip install --no-cache-dir --ignore-installed -r requirements.txt
 
 # Copiamos el modelo y el script
-COPY perros_gatos_master.keras .
+COPY model.keras .
 COPY app.py .
 
 # Creamos la carpeta de uploads dentro del contenedor
