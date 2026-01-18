@@ -1,13 +1,13 @@
-## Creación del modelo
-### Obtención y preparación del Dataset
-<p>Una vez que tenemos Jupyterlab en marcha, creamos la carpeta <code>cats_vs_dogs</code> y dentro de la misma pondremos las carpetas <code>test</code> y <code>train</code> que vienen en el Dataset que obtenemos, en nuestro caso lo hacemos del siguiente link:</p>
+## Model Creation
+### Dataset Acquisition and Preparation
+<p>Once we have Jupyterlab up and running, we create the folder <code>cats_vs_dogs</code> and inside it, we will place the folders <code>test</code> and <code>train</code> that come with the Dataset we obtain, in our case, we do it from the following link:</p>
 
 ```
 https://www.kaggle.com/datasets/moazeldsokyx/dogs-vs-cats
 ```
 ### Jupyterlab
 
-#### Preparación del entorno
+#### Environment Preparation
 
 ```
 import os
@@ -16,7 +16,7 @@ from tensorflow.keras import layers, models
 # set the environment
 os.environ['TF_XLA_FLAGS'] = '--tf_xla_enable_xla_devices=false'
 
-# supress low level warnings
+# suppress low level warnings
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
 
 import tensorflow as tf
@@ -83,7 +83,7 @@ model.compile(
     metrics=['accuracy']
 )
 ```
-#### Entrenamiento del modelo
+#### Model Training
 
 ```
 # train the model
@@ -94,7 +94,7 @@ history = model.fit(
     #callbacks=[early_stopping] 
 )
 ```
-#### Comprobación de la efectividad del modelo
+#### Checking Model Effectiveness
 
 ```
 import matplotlib.pyplot as plt
@@ -108,15 +108,15 @@ plt.xlabel('Epochs')
 plt.legend()
 plt.show()
 ```
-#### Guardamos el modelo
+#### Saving the Model
 
 ```
 # save the model
 model.save('model.keras')
 print('¡Modelo de visión artificial guardado!')
 ```
-#### Definición de test
-<p>Definimos un test para poder probar nuestro modelo sin tener que volver a entrenar el modelo.</p>
+#### Test Definition
+<p>We define a test to be able to try our model without having to retrain the model.</p>
 
 ```
 # Load the model and test
@@ -127,7 +127,7 @@ from tensorflow.keras.preprocessing import image
 # set the environment
 os.environ['TF_XLA_FLAGS'] = '--tf_xla_enable_xla_devices=false'
 
-# supress low level warnings
+# suppress low level warnings
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
 
 import tensorflow as tf
@@ -154,8 +154,8 @@ def predict_animal(img_path):
         score = 1 - prediction[0][0]
         print(f"It's a CAT (Trust: {score:.2%})")
 ```
-#### Obtenemos el resultado
-<p>Previamente descargamos algunas imágenes de internet para probar el modelo.</p>
+#### Obtaining the Result
+<p>Previously, we downloaded some images from the internet to test the model.</p>
 
 ```
 # test the model
@@ -164,7 +164,7 @@ predict_animal(img_path)
 ```
 <hr>
 
-#### Explicación del código
+#### Code Explanation
 
 ```
 # set the images
@@ -185,27 +185,27 @@ val_ds = tf.keras.utils.image_dataset_from_directory(
     label_mode='binary'
 )
 ```
-<p>Esta parte del código se encarga de <strong>preparar y cargar las imágenes</strong> desde tu computadora hacia el programa para que el modelo las pueda procesar.</p>
-<p>Aquí tienes el desglose paso a paso:</p>
+<p>This part of the code is responsible for <strong>preparing and loading the images</strong> from your computer to the program so that the model can process them.</p>
+<p>Here is the step-by-step breakdown:</p>
 <ol>
     <li>
-    Configuración de parámetros
-    <p>Antes de cargar las fotos, se definen dos variables clave:</p>
-    <p><strong>img_size = (160, 160):</strong> Todas las imágenes originales pueden tener tamaños distintos. Esta línea asegura que, al leerlas, todas se reescalen a <strong>160x160 píxeles</strong> para que el modelo reciba datos uniformes.</p>
-    <p><strong>batch_size = 32:</strong> El modelo no procesa todas las fotos a la vez (consumiría demasiada memoria). En su lugar, las toma en grupos o "lotes" de <strong>32 imágenes</strong>.</p>
+    Parameter Setting
+    <p>Before loading the photos, two key variables are defined:</p>
+    <p><strong>img_size = (160, 160):</strong> All original images may have different sizes. This line ensures that, when reading them, they are all re-scaled to <strong>160x160 pixels</strong> so that the model receives uniform data.</p>
+    <p><strong>batch_size = 32:</strong> The model does not process all the photos at once (it would consume too much memory). Instead, it takes them in groups or "batches" of <strong>32 images</strong>.</p>
     </li>    
     <li>
-    Carga del Dataset de Entrenamiento (train_ds)
-    <p>La función image_dataset_from_directory automatiza la lectura de carpetas:</p>
-    <p><strong>'cats_vs_dogs/train':</strong> Es la ruta de la carpeta donde están las fotos de entrenamiento. Keras asume que dentro de esta carpeta hay subcarpetas (ej. /cats y /dogs) y usa esos nombres como etiquetas.</p>
-    <p><strong>image_size=img_size:</strong> Aplica el tamaño de 160x160 definido antes.</p>
-    <p><strong>batch_size=batch_size:</strong> Agrupa las imágenes en los lotes de 32 mencionados.</p>
-    <p><strong>label_mode='binary':</strong> Indica que solo hay dos categorías (gato o perro). Esto hará que las etiquetas sean simplemente 0 o 1, ideal para una clasificación de "esto o aquello".</p>
+    Loading the Training Dataset (train_ds)
+    <p>The image_dataset_from_directory function automates the reading of folders:</p>
+    <p><strong>'cats_vs_dogs/train':</strong> This is the path to the folder where the training photos are located. Keras assumes that within this folder there are subfolders (e.g., /cats and /dogs) and uses those names as labels.</p>
+    <p><strong>image_size=img_size:</strong> Applies the size of 160x160 defined earlier.</p>
+    <p><strong>batch_size=batch_size:</strong> Groups the images into the mentioned batches of 32.</p>
+    <p><strong>label_mode='binary':</strong> Indicates that there are only two categories (cat or dog). This will make the labels simply 0 or 1, ideal for a "this or that" classification.</p>
     </li>
     <li>
-    Carga del Dataset de Validación (val_ds)
-    <p>Se repite el mismo proceso pero apuntando a la carpeta <strong>'cats_vs_dogs/validation'</strong>. Estos datos se mantienen separados y sirven para que, durante el entrenamiento, el modelo pueda ser evaluado con imágenes que "nunca ha visto", permitiéndote saber si realmente está aprendiendo o solo memorizando.</p>
-    <p><strong>En resumen:</strong> Estas líneas convierten tus carpetas de fotos en objetos de datos listos para ser "leídos" eficientemente por la tarjeta gráfica (GPU) durante el entrenamiento.</p>
+    Loading the Validation Dataset (val_ds)
+    <p>The same process is repeated but pointing to the folder <strong>'cats_vs_dogs/validation'</strong>. This data is kept separate and serves so that, during training, the model can be evaluated with images that it has "never seen before", allowing you to know if it is really learning or just memorizing.</p>
+    <p><strong>In summary:</strong> These lines convert your photo folders into data objects ready to be "read" efficiently by the graphics card (GPU) during training.</p>
     </li>
 </ol>
 
@@ -217,33 +217,33 @@ data_augmentation = models.Sequential([
     layers.RandomZoom(0.1),
 ])
 ```
-<p>Esta sección del código define una técnica llamada <strong>Aumento de Datos</strong> (<em>o Data Augmentation</em>). Su objetivo principal es crear "variedad artificial" en tus imágenes para que el modelo sea más robusto y no se memorice las fotos exactas del entrenamiento.</p>
-<p>Aquí tienes el desglose de cada parte:</p>
+<p>This section of the code defines a technique called <strong>Data Augmentation</strong>. Its main objective is to create "artificial variety" in your images so that the model is more robust and does not memorize the exact photos from training.</p>
+<p>Here is the breakdown of each part:</p>
 <ol>
     <li>
     models.Sequential([...])
-    <p>Crea una pequeña secuencia de pasos que se aplicarán a cada imagen justo antes de entrar a la red neuronal. Es como una "aduana" por la que pasan las fotos para ser transformadas.</p>
+    <p>Creates a small sequence of steps that will be applied to each image just before entering the neural network. It's like a "customs" through which the photos pass to be transformed.</p>
     </li>
     <li>
     layers.RandomFlip("horizontal")
-    <p><strong>Qué hace:</strong> Gira la imagen de izquierda a derecha de forma aleatoria (como un espejo).</p>
-    <p><strong>Por qué sirve:</strong> Un perro sigue siendo un perro aunque esté mirando hacia el otro lado. Esto ayuda al modelo a no depender de la dirección hacia la que mira el animal.</p>
+    <p><strong>What it does:</strong> Flips the image horizontally (like a mirror) randomly.</p>
+    <p><strong>Why it helps:</strong> A dog is still a dog even if it's facing the other way. This helps the model not to rely on the direction the animal is facing.</p>
     </li>
     <li>
     layers.RandomRotation(0.1)
-    <p><strong>Qué hace:</strong> Rota la imagen aleatoriamente hasta un <strong>10%</strong> (aproximadamente 36 grados) en cualquier dirección.</p>
-    <p><strong>Por qué sirve:</strong> En la vida real, las fotos no siempre están perfectamente niveladas. Esto enseña al modelo a reconocer al animal aunque la cámara esté un poco inclinada.</p>
+    <p><strong>What it does:</strong> Rotates the image randomly by up to <strong>10%</strong> (about 36 degrees) in either direction.</p>
+    <p><strong>Why it helps:</strong> In real life, photos are not always perfectly level. This teaches the model to recognize the animal even if the camera is slightly tilted.</p>
     </li>
     <li>
     layers.RandomZoom(0.1)
-    <p><strong>Qué hace:</strong> Aplica un zoom (hacia adentro o hacia afuera) de forma aleatoria de hasta un <strong>10%</strong>.</p>
-    <p><strong>Por qué sirve:</strong> Ayuda al modelo a reconocer objetos aunque aparezcan más cerca o más lejos de la cámara.</p>
+    <p><strong>What it does:</strong> Applies a zoom (inward or outward) randomly of up to <strong>10%</strong>.</p>
+    <p><strong>Why it helps:</strong> Helps the model recognize objects even if they appear closer or further away from the camera.</p>
     </li>
 </ol>
 <hr>
-<p>¿Para qué sirve todo esto en conjunto?</p>
-<p>El <strong>Aumento de Datos</strong> es la mejor herramienta contra el <strong>Overfitting</strong> (sobreajuste). Sin esto, si todas tus fotos de perros tuvieran al perro a la derecha, el modelo podría aprender erróneamente que "perro = algo a la derecha". Al girar, rotar y hacer zoom, obligas al modelo a aprender <strong>las características reales</strong> (orejas, hocico, ojos) en lugar de solo la posición de los píxeles.</p>
-<p><strong>Nota técnica:</strong> Estas transformaciones solo ocurren durante el entrenamiento y son aleatorias en cada época, por lo que el modelo casi nunca ve la misma imagen exacta dos veces.</p>
+<p>What is all this for?</p>
+<p><strong>Data Augmentation</strong> is the best tool against <strong>Overfitting</strong>. Without this, if all your dog photos had the dog on the right, the model might incorrectly learn that "dog = something on the right". By flipping, rotating, and zooming, you force the model to learn <strong>the real features</strong> (ears, snout, eyes) instead of just the pixel position.</p>
+<p><strong>Technical note:</strong> These transformations only occur during training and are random in each epoch, so the model almost never sees the exact same image twice.</p>
 
 ```
 # define the CNN
@@ -268,35 +268,35 @@ model = models.Sequential([
     layers.Dense(1, activation='sigmoid')
 ])
 ```
-<p>Esta es la arquitectura de tu <strong>Red Neuronal Convencional (CNN)</strong>. Aquí es donde se define la "inteligencia" que aprenderá a distinguir entre perros y gatos. Se lee como una línea de ensamblaje, donde la imagen entra por arriba y el resultado sale por abajo:</p>
+<p>This is the architecture of your <strong>Convolutional Neural Network (CNN)</strong>. Here is where the "intelligence" that will learn to distinguish between dogs and cats is defined. It reads like an assembly line, where the image enters from the top and the result comes out from the bottom:</p>
 
 <ol>
     <li>
-    Entrada y Preprocesamiento
-    <p><strong>layers.Input(shape=(160, 160, 3)):</strong> Define el tamaño de entrada. 160x160 son los píxeles y 3 indica los canales de color (Rojo, Verde, Azul - RGB).</p>
-    <p><strong>data_augmentation:</strong> Aquí insertas el bloque que explicamos antes. Cada imagen que entre será rotada o girada aleatoriamente antes de ser analizada.</p>
-    <p><strong>layers.Rescaling(1./255):</strong> Las imágenes digitales tienen píxeles de 0 a 255. Las redes neuronales trabajan mejor con números pequeños; esta línea divide todo por 255 para que los valores queden entre <strong>0 y 1</strong>.</p>
+    Input and Preprocessing
+    <p><strong>layers.Input(shape=(160, 160, 3)):</strong> Defines the input size. 160x160 are the pixels and 3 indicates the color channels (Red, Green, Blue - RGB).</p>
+    <p><strong>data_augmentation:</strong> Here you insert the block we explained earlier. Each image that enters will be randomly flipped or rotated before being analyzed.</p>
+    <p><strong>layers.Rescaling(1./255):</strong> Digital images have pixel values from 0 to 255. Neural networks work better with small numbers; this line divides everything by 255 so that the values are between <strong>0 and 1</strong>.</p>
     </li>
     <li>
-    Extracción de Características (Capas Convencionales)
-    <p>Esta es la parte "visual" del modelo:</p>
-    <p><strong>layers.Conv2D(32, (3, 3), activation='relu'):</strong> Es un "filtro" que recorre la imagen buscando patrones simples (bordes, líneas). Crea 32 mapas de características distintos.</p>
-    <p><strong>layers.MaxPooling2D(2, 2):</strong> Reduce el tamaño de la imagen a la mitad. Se queda solo con la información más importante para que el modelo sea más rápido y no se pierda en detalles irrelevantes.</p>
-    <p><strong>layers.Conv2D(64, ...):</strong> Otro filtro, pero ahora busca patrones más complejos (curvas, formas de ojos o de orejas). Al tener 64 filtros, puede "ver" más detalles.</p>
+    Feature Extraction (Conventional Layers)
+    <p>This is the "visual" part of the model:</p>
+    <p><strong>layers.Conv2D(32, (3, 3), activation='relu'):</strong> It's a "filter" that scans the image looking for simple patterns (edges, lines). It creates 32 distinct feature maps.</p>
+    <p><strong>layers.MaxPooling2D(2, 2):</strong> Reduces the image size by half. It keeps only the most important information so that the model is faster and doesn't get lost in irrelevant details.</p>
+    <p><strong>layers.Conv2D(64, ...):</strong> Another filter, but now it looks for more complex patterns (curves, shapes of eyes or ears). Having 64 filters, it can "see" more details.</p>
     </li>
     <li>
-    Clasificación (Capas Densas)
-    <p>Aquí es donde el modelo toma la información visual y toma una decisión:</p>
-    <p><strong>layers.Flatten():</strong> Convierte los mapas de características bidimensionales en una sola lista larga de números (un vector plano).</p>
-    <p><strong>layers.Dense(128, activation='relu'):</strong> Una capa de 128 "neuronas" que conectan todos los patrones detectados para intentar entender qué animal es.</p>
-    <p><strong>layers.Dropout(0.5):</strong> Es una técnica de seguridad. "Apaga" el 50% de las neuronas aleatoriamente en cada paso del entrenamiento. Esto obliga al modelo a no depender de una sola neurona y a ser más robusto (evita el overfitting).</p>
-    <p><strong>layers.Dense(1, activation='sigmoid'):</strong> La neurona final.</p>
-    <p>Usa <strong>sigmoid</strong> porque solo hay dos opciones. Devolverá un número entre <strong>0 y 1</strong>. Si el resultado es cercano a 0, el modelo cree que es una clase (ej. gato); si es cercano a 1, cree que es la otra (ej. perro).</p>    
+    Classification (Dense Layers)
+    <p>Here is where the model takes the visual information and makes a decision:</p>
+    <p><strong>layers.Flatten():</strong> Converts the two-dimensional feature maps into a long single list of numbers (a flat vector).</p>
+    <p><strong>layers.Dense(128, activation='relu'):</strong> A layer of 128 "neurons" that connect all the detected patterns to try to understand what the animal is.</p>
+    <p><strong>layers.Dropout(0.5):</strong> It's a safety technique. It "turns off" 50% of the neurons randomly at each training step. This forces the model not to rely on a single neuron and to be more robust (prevents overfitting).</p>
+    <p><strong>layers.Dense(1, activation='sigmoid'):</strong> The final neuron.</p>
+    <p>It uses <strong>sigmoid</strong> because there are only two options. It will return a number between <strong>0 and 1</strong>. If the result is close to 0, the model thinks it's one class (e.g., cat); if it's close to 1, it thinks it's the other (e.g., dog).</p>    
     </li>
 </ol>
 
-<p>Resumen del flujo:</p>
-<p>1. <strong>Entra la imagen</strong> → 2. <strong>Se transforma</strong> (aumento) → 3. <strong>Se normaliza</strong> (0-1) → 4. <strong>Se detectan formas</strong> (Conv2D) → 5. <strong>Se simplifica</strong> (Pooling) → 6. <strong>Se analiza la información</strong> (Dense) → 7. <strong>Se da un resultado final</strong>.</p>
+<p>Flow summary:</p>
+<p>1. <strong>The image enters</strong> → 2. <strong>It is transformed</strong> (augmentation) → 3. <strong>It is normalized</strong> (0-1) → 4. <strong>Shapes are detected</strong> (Conv2D) → 5. <strong>It is simplified</strong> (Pooling) → 6. <strong>Information is analyzed</strong> (Dense) → 7. <strong>A final result is given</strong>.</p>
 
 ```
 model.compile(
@@ -305,31 +305,31 @@ model.compile(
     metrics=['accuracy']
 )
 ```
-<p>Esta parte del código es la <strong>fase de configuración</strong> del modelo. Antes de empezar a entrenar con los datos, debes decirle al modelo "cómo" debe aprender y "cómo" vas a medir si lo está haciendo bien.</p>
-<p>Aquí tienes el desglose de los tres pilares del aprendizaje:</p>
+<p>This part of the code is the <strong>configuration phase</strong> of the model. Before starting to train with the data, you must tell the model "how" it should learn and "how" you will measure if it is doing it right.</p>
+<p>Here is the breakdown of the three pillars of learning:</p>
 
 <ol>
     <li>
-        optimizer='adam' (El Cerebro)
-        <p>El optimizador es el algoritmo que se encarga de actualizar los pesos de la red neuronal para reducir el error.</p>
-        <p><strong>Adam</strong> es el estándar de la industria hoy en día (2025). Es muy eficiente porque ajusta automáticamente la "velocidad" de aprendizaje (learning rate). Si el modelo está lejos de la respuesta, da pasos grandes; si está cerca, da pasos pequeños para no pasarse de largo.</p>
+        optimizer='adam' (The Brain)
+        <p>The optimizer is the algorithm that updates the weights of the neural network to reduce the error.</p>
+        <p><strong>Adam</strong> is the industry standard today (2025). It's very efficient because it automatically adjusts the "learning rate". If the model is far from the answer, it takes large steps; if it's close, it takes small steps to avoid overshooting.</p>
     </li>
     <li>
-        loss='binary_crossentropy' (La Regla de Medir)
-        <p>La "función de pérdida" (loss) es la forma en que el modelo calcula <strong>qué tan equivocado está</strong>.</p>
-        <p><strong>binary_crossentropy</strong> se usa específicamente cuando tienes una <strong>clasificación binaria</strong> (solo dos opciones, como gato o perro).</p>
-        <p>Si el modelo está muy seguro de que una foto es un gato y resulta ser un perro, esta función le dará una "penalización" muy alta para que aprenda del error drásticamente.</p>
+        loss='binary_crossentropy' (The Measuring Rule)
+        <p>The "loss function" is how the model calculates <strong>how wrong it is</strong>.</p>
+        <p><strong>binary_crossentropy</strong> is used specifically when you have a <strong>binary classification</strong> (only two options, like cat or dog).</p>
+        <p>If the model is very sure that a photo is a cat and it turns out to be a dog, this function will give it a very high "penalty" to learn from the mistake drastically.</p>
     </li>
     <li>
-        metrics=['accuracy'] (El Reporte)
-        <p>Aquí defines qué estadísticas quieres ver mientras el modelo entrena.</p>
-        <p><strong>accuracy (Precisión):</strong> Es el porcentaje de aciertos. Por ejemplo, si de 100 imágenes el modelo adivina 90 correctamente, verás un 0.90 en tu pantalla durante el entrenamiento. Es la métrica más fácil de entender para nosotros los humanos para saber si el modelo está funcionando.</p>
+        metrics=['accuracy'] (The Report)
+        <p>Here you define what statistics you want to see while the model trains.</p>
+        <p><strong>accuracy (Precision):</strong> It's the percentage of correct guesses. For example, if out of 100 images the model guesses 90 correctly, you will see a 0.90 on your screen during training. It's the easiest metric for us humans to understand if the model is working.</p>
     </li>
 </ol>
 
-<p>En resumen, con esta línea le estás diciendo al programa:</p>
-<p><em>"Usa el algoritmo Adam para mejorar, mide tus errores con Binary Crossentropy y
-muéstrame en pantalla el porcentaje de aciertos después de cada paso."</em></p>
+<p>In summary, with this line you are telling the program:</p>
+<p><em>"Use the Adam algorithm to improve, measure your errors with Binary Crossentropy, and
+show me the percentage of correct guesses after each step."</em></p>
 
 <hr>
 
@@ -342,16 +342,16 @@ history = model.fit(
     #callbacks=[early_stopping] 
 )
 ```
-<p>Este fragmento de código utiliza la biblioteca TensorFlow/Keras para entrenar una red neuronal.</p>
+<p>This code snippet uses the TensorFlow/Keras library to train a neural network.</p>
 
-<p>Aquí tienes el desglose paso a paso:</p>
+<p>Here is the step-by-step breakdown:</p>
 
 <ol>
-    <li><p><strong>history =:</strong>El método fit devuelve un objeto llamado History. Este objeto registra las métricas (como la precisión y la pérdida) obtenidas al final de cada época, lo que te permite graficar el rendimiento del modelo después. Puedes consultar la documentación oficial de Keras para ver qué datos almacena.</p></li>
-    <li><p><strong>model.fit(...):</strong> Es la función principal para iniciar el entrenamiento. "Ajusta" (fit) los parámetros del modelo (pesos y sesgos) para que aprenda a predecir correctamente basándose en los datos proporcionados.</p></li>
-    <li><p><strong>train_ds:</strong> Representa el <strong>conjunto de datos de entrenamiento</strong>. Es la fuente de información de la cual el modelo aprenderá los patrones. Generalmente es un objeto de tipo tf.data.Dataset.</p></li>
-    <li><p><strong>validation_data=val_ds:</strong> Define el <strong>conjunto de datos de validación</strong>. Al final de cada época, el modelo se prueba con estos datos (que no ha visto durante el entrenamiento) para verificar si está generalizando bien o si está sufriendo de overfitting (sobreajuste).</p></li>
-    <li><p><strong>epochs=10:</strong> Indica el <strong>número de épocas</strong>. Una época es una pasada completa de todos los datos de entrenamiento a través de la red neuronal. En este caso, el proceso se repetirá 10 veces.</p></li>
+    <li><p><strong>history =:</strong> The fit method returns an object called History. This object records the metrics (like precision and loss) obtained at the end of each epoch, allowing you to graph the model's performance later. You can check the official Keras documentation to see what data it stores.</p></li>
+    <li><p><strong>model.fit(...):</strong> This is the main function to start training. It "fits" (adjusts) the model's parameters (weights and biases) so that it learns to predict correctly based on the provided data.</p></li>
+    <li><p><strong>train_ds:</strong> Represents the <strong>training dataset</strong>. It is the source of information from which the model will learn the patterns. Generally, it is an object of type tf.data.Dataset.</p></li>
+    <li><p><strong>validation_data=val_ds:</strong> Defines the <strong>validation dataset</strong>. At the end of each epoch, the model is tested with this data (which it has not seen during training) to check if it is generalizing well or if it is suffering from overfitting.</p></li>
+    <li><p><strong>epochs=10:</strong> Indicates the <strong>number of epochs</strong>. An epoch is a complete pass of all the training data through the neural network. In this case, the process will be repeated 10 times.</p></li>
 </ol>
 
 ```
@@ -366,43 +366,43 @@ plt.xlabel('Epochs')
 plt.legend()
 plt.show()
 ```
-<p>Esta parte del código se encarga de la <strong>visualización de resultados</strong>. Utiliza la biblioteca Matplotlib para crear una gráfica que te permite evaluar visualmente si tu modelo aprendió correctamente o si tiene problemas.</p>
-<p>Aquí tienes el desglose paso a paso:</p>
+<p>This part of the code is responsible for <strong>result visualization</strong>. It uses the Matplotlib library to create a graph that allows you to visually evaluate if your model learned correctly or if it has problems.</p>
+<p>Here is the step-by-step breakdown:</p>
 <ol>
     <li>
         import matplotlib.pyplot as plt
-        <p>Importa la herramienta de dibujo estándar de Python. Se le asigna el alias plt para que sea más rápido de escribir.</p>
+        <p>Imports the standard Python drawing tool. It is assigned the alias plt so that it is faster to write.</p>
     </li>
     <li>
         plt.plot(history.history['accuracy'], ...)
-        <p><strong>¿Qué hace?:</strong> Dibuja la línea de <strong>precisión de entrenamiento</strong>.</p>
-        <p><strong>De dónde viene:</strong> Recuerdas que al principio guardamos el entrenamiento en una variable llamada history. Esta variable contiene un diccionario con el registro de qué tan bien le fue al modelo en cada una de las 10 épocas.</p>
+        <p><strong>What does it do?:</strong> Draws the line of <strong>training precision</strong>.</p>
+        <p><strong>Where does it come from:</strong> Remember that we saved the training in a variable called history. This variable contains a dictionary with the record of how well the model did in each of the 10 epochs.</p>
     </li>
     <li>
         plt.plot(history.history['val_accuracy'], ...)
-        <p><strong>¿Qué hace?:</strong> Dibuja la línea de <strong>precisión de validación</strong>.</p>
-        <p><strong>Por qué es importante:</strong> Esta es la línea clave. Muestra qué tan bien se comporta el modelo con imágenes que <strong>no utilizó para entrenar</strong>.</p>
+        <p><strong>What does it do?:</strong> Draws the line of <strong>validation precision</strong>.</p>
+        <p><strong>Why is it important:</strong> This is the key line. It shows how well the model performs with images that <strong>it did not use for training</strong>.</p>
     </li>
     <li>
-        Configuración de la gráfica (Títulos y Etiquetas)
-        <p><strong>plt.title, plt.ylabel, plt.xlabel:</strong> Añaden el título principal ("Model precision") y los nombres a los ejes (el eje vertical es el porcentaje de acierto y el horizontal son las épocas o iteraciones).</p>
-        <p><strong>plt.legend():</strong> Muestra el recuadro que indica qué color de línea corresponde a "Training" y cuál a "Validation".</p>
+        Graph Configuration (Titles and Labels)
+        <p><strong>plt.title, plt.ylabel, plt.xlabel:</strong> Adds the main title ("Model precision") and the names to the axes (the vertical axis is the success percentage and the horizontal one is the epochs or iterations).</p>
+        <p><strong>plt.legend():</strong> Shows the box that indicates which line color corresponds to "Training" and which to "Validation".</p>
     </li>
     <li>
         plt.show()
-        <p>Es la orden final que abre la ventana y proyecta la gráfica en tu pantalla.</p>
+        <p>It's the final order that opens the window and projects the graph on your screen.</p>
     </li>
 </ol>
 <hr>
-<p>¿Cómo interpretar esta gráfica en 2025?</p>
-<p>Al ejecutar esto, verás dos líneas. Lo ideal es que ambas suban juntas. Aquí hay dos escenarios comunes:</p>
+<p>How to interpret this graph in 2025?</p>
+<p>When you run this, you will see two lines. Ideally, both should go up together. Here are two common scenarios:</p>
 
 <ol>
     <li>
-        <p><strong>Escenario Ideal:</strong> Ambas líneas suben y terminan cerca una de la otra (ej. 90%). Esto significa que tu modelo aprendió a identificar perros y gatos en general.</p>
+        <p><strong>Ideal Scenario:</strong> Both lines go up and end up close to each other (e.g., 90%). This means your model learned to identify dogs and cats in general.</p>
     </li>
     <li>
-        <p><strong>Overfitting (Sobreajuste):</strong> La línea de Training sube al 99% pero la de Validation se queda estancada abajo o empieza a bajar. Esto significa que el modelo <strong>memorizó</strong> las fotos de entrenamiento pero no sabe reconocer fotos nuevas.</p>
+        <p><strong>Overfitting:</strong> The Training line goes up to 99% but the Validation one stays flat or starts to go down. This means the model <strong>memorized</strong> the training photos but does not know how to recognize new photos.</p>
     </li>
 </ol>
 
@@ -415,7 +415,7 @@ from tensorflow.keras.preprocessing import image
 # set the environment
 os.environ['TF_XLA_FLAGS'] = '--tf_xla_enable_xla_devices=false'
 
-# supress low level warnings
+# suppress low level warnings
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
 
 import tensorflow as tf
@@ -442,34 +442,34 @@ def predict_animal(img_path):
         score = 1 - prediction[0][0]
         print(f"It's a CAT (Trust: {score:.2%})")
 ```
-<p>Esta sección del código es la <strong>Inferencia</strong>. Sirve para usar el conocimiento que el modelo adquirió durante el entrenamiento y aplicarlo a imágines nuevas.</p>
-<p>Aquí tienes el desglose paso a paso:</p>
+<p>This section of the code is for <strong>Inference</strong>. It is used to apply the knowledge that the model acquired during training to new images.</p>
+<p>Here is the step-by-step breakdown:</p>
 
 <ol>
     <li>
-        Configuración del Entorno y Carga
-        <p><strong>os.environ[...]:</strong> Estas líneas configuran cómo TensorFlow interactúa con tu hardware. El nivel de log '2' se usa para limpiar la consola, ocultando mensajes informativos y dejando solo los errores graves[1].</p>
-        <p><strong>tf.keras.models.load_model('...'):</strong> Esta es la función clave. Carga el archivo .keras que guardaste previamente (que contiene la estructura y los "pesos" o memoria del modelo). Ya no necesitas volver a entrenar; el modelo ya sabe qué buscar [2].</p>
+        Environment Setup and Loading
+        <p><strong>os.environ[...]:</strong> These lines configure how TensorFlow interacts with your hardware. The log level '2' is used to clean the console, hiding informative messages and leaving only serious errors[1].</p>
+        <p><strong>tf.keras.models.load_model('...'):</strong> This is the key function. It loads the .keras file that you saved earlier (which contains the structure and the "weights" or memory of the model). You no longer need to train again; the model already knows what to look for [2].</p>
     </li>
     <li>
-        Preparación de la imagen (predict_animal)
-        <p>Antes de que el modelo pueda "mirar" una foto, esta debe pasar por un proceso de transformación:</p>
-        <p><strong>image.load_img(..., target_size=(160, 160)):</strong> Abre la foto y la fuerza a tener el tamaño de 160x160 píxeles, exactamente igual a como entrenaste al modelo.</p>
-        <p><strong>img_to_array:</strong> Convierte los colores de la imagen en una matriz de números que la computadora entiende.</p>
-        <p><strong>np.expand_dims(..., axis=0):</strong> TensorFlow no acepta una sola imagen suelta; espera un "lote" (batch). Esta línea convierte la imagen de una sola pieza a una "lista de una imagen", dándole la forma (1, 160, 160, 3).</p>
+        Image Preparation (predict_animal)
+        <p>Before the model can "see" a photo, it must go through a transformation process:</p>
+        <p><strong>image.load_img(..., target_size=(160, 160)):</strong> Opens the photo and forces it to be 160x160 pixels, just like you trained the model.</p>
+        <p><strong>img_to_array:</strong> Converts the colors of the image into a matrix of numbers that the computer understands.</p>
+        <p><strong>np.expand_dims(..., axis=0):</strong> TensorFlow does not accept a single loose image; it expects a "batch". This line converts the image from a single piece to a "list of one image", giving it the shape (1, 160, 160, 3).</p>
     </li>
     <li>
-        La Predicción y la Lógica de Decisión
-        <p><strong>model.predict(img_array):</strong> El modelo analiza los píxeles y devuelve un número decimal entro 0 y 1.</p>
+        Prediction and Decision Logic
+        <p><strong>model.predict(img_array):</strong> The model analyzes the pixels and returns a decimal number between 0 and 1.</p>
         <p></p>
-        <p><strong>Interpretación del resultado:</strong> Como usamos una activación sigmoid al final del modelo, el resultado es una probabilidad.</p>
-        <p><strong>if prediction[0] > 0.5:</strong> Si el número es mayor a 0.5, el modelo está más seguro de que es un <strong>perro</strong>. Cuanto más cerca de 1, mayor es la confianza.</p>
-        <p><strong>else:</strong> Si es menor a 0.5, el modelo determina que es un <strong>gato</strong>.</p>
+        <p><strong>Result Interpretation:</strong> As we used a sigmoid activation at the end of the model, the result is a probability.</p>
+        <p><strong>if prediction[0] > 0.5:</strong> If the number is greater than 0.5, the model is more sure it's a <strong>dog</strong>. The closer to 1, the higher the confidence.</p>
+        <p><strong>else:</strong> If it's less than 0.5, the model determines it's a <strong>cat</strong>.</p>
     </li>
     <li>
-        Cálculo de Confianza (score)
-        <p>Para el perro, el valor directo es la confianza.</p>
-        <p>Para el gato, se resta de 1 (ej: si sale 0.1, el modelo tiene un 1 - 0.1 = 0.9 o 90% de confianza de que es un gato).</p>
-        <p><strong>{score:.2%}:</strong> Es un formato de texto que convierte el número (ej: 0.854) en un porcentaje legible (85.40%).</p>
+        Confidence Calculation (score)
+        <p>For the dog, the direct value is the confidence.</p>
+        <p>For the cat, it is subtracted from 1 (e.g., if it comes out 0.1, the model has a 1 - 0.1 = 0.9 or 90% confidence that it is a cat).</p>
+        <p><strong>{score:.2%}:</strong> It's a text format that converts the number (e.g., 0.854) into a readable percentage (85.40%).</p>
     </li>
 </ol>
